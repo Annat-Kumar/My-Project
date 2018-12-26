@@ -1,0 +1,99 @@
+
+Wepay api link and user details
+
+https://stage.wepay.com/developer
+
+wepay details for Super account callie 
+
+calliealwin@gmail.com
+pswd: callie@123
+
+wepay details for other users
+
+sapna@bytecodetechnologies.in
+pswd: sapna@123 
+
+shivali@bytecodetechnologies.in
+pswd: shivali@123 
+
+sapna@bytecodetechnologies.in
+pswd: sapna@123 
+
+==========================================
+https://www.wepay.com/login
+username: kevinmbenedict@icloud.com
+password: weshare123
+===========================================
+Website functionality details
+
+http://bytecodetechnologies.co.in/kevin-bendict/
+Wp-admin details:-  
+Username: admin
+password: admin@123
+
+kevinmbenedict@gmail.com
+weshare123
+
+Other users 
+sapna@bytecodetechnologies.in
+pswd: sapna@123 
+
+kevinmbenedictwithdraw@gmail.com
+weshare123
+
+shivali@bytecodetechnologies.in
+pswd: shivali@123 
+
+1. Sign Up, login with facebook (Done)
+
+  => The signup and login functionality is done with facebook also. When a user create account then his wepay account will also create . The user will get email for verify his wepay account. 
+
+  => I have created register and login template for these. For create account on wepay with facebook i create a template file facebook_wepay.php
+
+ 2. Share posts (money)  (Done)
+
+   => Any user can share his post on "Posting" page. He will submit his credit card info here. When he will submit this form a new post will creted and a payment will be complete to the Super wepay account's . 
+
+   => There is the template file named as job-submit.php
+
+   => There is section in admin named "Credit card settings". From there you can change the all credit card of wepay account details for super account.
+
+ 3. Postings (Done)
+
+   => The posting page where the all posts will show which are not currently released to anyone. User need o login for send request. 
+
+    => File for this all-jobs.php
+
+ 4. Myaccount
+
+   1. Posts (Done)
+
+    => In this page the all posts of logged in user will be show which are not released to anyone.
+    => From here he can delete post, request for post or release the fund to any user.
+
+    File name: myposts.php
+
+   2. Withdrawl (Done)
+
+    => In this page the transactions or payments will show of logged in user. From here he can send Thanks message to the payer.
+
+     File name: withdrawl.php 
+
+   3. Edit profile (Done)
+
+    => The user can edit his bank details and profile pic from this page
+
+     File name: edit-profile.php
+
+ 5. History (Done)
+
+   => The all released posts of the current user will show here. 
+
+     File name: history.php
+
+
+  6. Real Time chat and design for some pages is pending.
+  
+--------------------------------------------------------------
+
+

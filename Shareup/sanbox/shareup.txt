@@ -1,0 +1,34 @@
+ INSTALL_PHPMYADMIN
+
+phpmyadmin:True
+
+MYSQL_ROOT_PASSWORD
+
+rfUpBF6tyb+ArM
+
+WORDPRESS_ADMIN_EMAIL
+
+sanjay@bytecodetechnologies.in
+
+WORDPRESS_ADMIN_PASSWORD
+
+m89+LnidVnG5TJ
+
+WORDPRESS_DATABASE_PASSWORD
+
+R7KTD77v3m+oTx
+
+===================================================
+https://www.shareupproject.com/phpmyadmin
+root
+rfUpBF6tyb+ArM
+
+https://www.shareupproject.com/wp-admin
+admin	
+admin123
+
+FTP details
+-------------------
+host: 35.184.230.26
+SFTP
+user:my-shareupproject

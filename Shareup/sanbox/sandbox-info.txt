@@ -1,0 +1,34 @@
+wepay client-id: 49602
+client secret: 705f076c5a
+account-id: 1211714039
+wepay-access token: STAGE_6f6c3341e5ee8f90a8556a61f6b3e85e2590a6011ac4df4d46676fa59c839321
+Name: Sapna Rana
+Email: sapna@bytecodetechnologies.in
+credit card: 2223000048400011
+exp:12
+exp-year: 31
+CVV: 123
+Postal-code: 94085
+---------------------------------------------
+$response = stdClass Object ( [credit_card_id] => 1208981478 [state] => new ) ;
+
+WePay Object ( [token:WePay:private] => PRODUCTION_f9a8a79563382c2f0f7293de0baf28119ff6f617314e884907f8593c0fc6cdaf ) 
+================================================================================================
+live card details
+
+4867967020604462
+01
+2020
+327
+98105
+
+========================================================
+goyalsunny1990@gmail.com
+
+sanjay_bytecode
+sanjay@123
+===========================================================
+Dear Sir, 
+we have search the about payment procedure and find that we need to apply 'Tokenize credit cards' for accepr payment through credit card. I have shared below  link to get information about 'Tokenize credit cards'.
+please check this link
+https://developer.wepay.com/docs/process-payments/custom-checkout
