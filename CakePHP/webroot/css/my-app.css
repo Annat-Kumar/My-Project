@@ -1,0 +1,29 @@
+.already-login {text-align:center}
+.hello-user {
+color: #fff;
+display: block;
+font-family: "Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+font-size: 0.8125rem;
+font-weight: normal;
+padding-left: 0.9375rem;
+padding: 12px 0 12px 0.9375rem;
+text-transform: none;
+}
+
+.page-content
+{
+text-align: center;
+background-color: #cfbc2f;
+}
+
+.login-user {
+font-weight: bold;
+color: #8d17d5;
+}
+.user-logout {
+font-size: 16px;
+font-weight: bold;
+}
+.add-user {color: #fff;font-size: 15px;}
+.add-user:hover {color: #fff;font-size: 15px;}
+.th-center th {text-align: center;}.fl-rt{float:right;}
