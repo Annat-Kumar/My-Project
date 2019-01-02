@@ -1,0 +1,32 @@
+
+git init
+git add .
+git commit -m "message"
+git remote add origin https://github.com/Annat-Kumar/My-Project.git
+git push -u origin master
+-----------------------------------
+git pull origin master
+
+git checkout -b Badgermapping-Test
+
+git add .
+
+git commit -m "message"
+
+git push origin Badgermapping-Test
+
+pull request from branch-name to master
+------------------
+git remote add origin https://github.com/Annat-Kumar/My-Project.git
+git push -u origin master
+----------------
+
+Git codingherd@gmail.com 
+Golden@yush1
+-------------------------
+git config --global user.name
+
+-------------------------
+git config --global --unset user.name
+git config --global --unset user.email
+git config --global --unset-all
