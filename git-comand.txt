@@ -21,8 +21,6 @@ git remote add origin https://github.com/Annat-Kumar/My-Project.git
 git push -u origin master
 ----------------
 
-Git codingherd@gmail.com 
-Golden@yush1
 -------------------------
 git config --global user.name
 
