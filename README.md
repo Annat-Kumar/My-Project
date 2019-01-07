@@ -2,7 +2,7 @@
 # Diffrent technologies
 # Core PHP
 # MySql
-#Javascript
+# Javascript
 # Jquery
 # Wordpress
 # Customization on premium wordpress plugin
