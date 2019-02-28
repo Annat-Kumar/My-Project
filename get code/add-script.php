@@ -22,6 +22,11 @@
 ?>
 <img class="img-loader" src="<?php bloginfo('template_directory');?>/images/ajax-loader.gif">	
 
+<link href="<?php echo bloginfo("stylesheet_directory"); ?>/admin/css/style.css" rel="stylesheet">
+<link href="<?php echo bloginfo("stylesheet_directory"); ?>/admin/css/responsive.css" rel="stylesheet"> 
+
+<?php echo "<script>window.location='".get_option('home')."/home-page/'</script>"; ?>
+<?php dynamic_sidebar('bottom-right-foot'); ?>	
 
 <script>
 

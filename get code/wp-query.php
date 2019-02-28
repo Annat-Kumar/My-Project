@@ -88,3 +88,19 @@ add_action('wp_ajax_nopriv_load_morepost', 'load_morepost');
 add_action('wp_ajax_load_morepost', 'load_morepost');	
 
 ?>
+<?php
+
+ $args = array(
+    'post_type'  => 'task',
+    'post_status'    => 'publish',
+    'author' => get_current_user_id(),
+    'meta_query' => array(
+       array(
+           'key' => 'final_release',
+           'value' => 'no',
+           'compare' => 'LIKE',
+       )
+   )
+);
+
+?>

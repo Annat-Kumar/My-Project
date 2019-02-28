@@ -78,7 +78,96 @@ if((in_array("administrator", $user_roless)) ||  (in_array("editor", $user_roles
         $id_donor = $current_user->ID;
         global $wpdb;
         $get_donate_posts = $wpdb->get_results("SELECT * FROM wp_donation  WHERE donars_id = $id_donor AND fund_ent_id = $post->ID");
+		
+		//$wpdb->query($wpdb->prepare("UPDATE $table_name SET d_call='$dcall', notes='$notes', n_d_call='$ndcall' WHERE usr_id=$userid and status=$i"));
+			  
+			  $wpdb->update( 
+					$table_name, 
+					array( 
+						'd_call' => $dcall,	
+						'notes' => $notes	,
+						'n_d_call' => $ndcall	,
+					), 
+					array( 
+					'usr_id' => $userid ,
+					'status' => $i 
+					) 										
+				);
 ?>
 <?php 
 $Update = $wpdb->query("UPDATE wp_post_relationships SET status = '$status'");
+?>
+
+<tbody>
+<?php $query    = get_users();
+	
+		foreach($query as $user_list) {
+	?>
+<tr>
+
+<td><?php echo $user_list->user_nicename; ?></td>
+
+<td><?php echo get_user_meta($user_list->ID, "phone", true); ?></td>
+
+<td><?php echo $user_list->user_email; ?></td>
+
+<td><?php echo $user_list->user_registered; ?></td>
+
+<td><a href="/customer-report/?usrid=<?php echo $user_list->ID; ?>">Customer Report</a></td>
+
+
+</tr>
+
+
+<?php }?>
+</tbody>
+
+
+-----------------------------------------------------------
+<?php 
+/**** Insert query ****/
+
+
+		$wpdb->insert( $table_name, array(
+		'usr_id' => $userid,
+		'notes' => $production,
+		'status' => '1'
+		) );
+		
+		
+/**** Update query ****/
+		$wpdb->query($wpdb->prepare("UPDATE $table_name SET notes='$production' WHERE usr_id=$userid"));
+		
+		$wpdb->update( 
+					$table_name, 
+					array( 
+						'd_call' => $dcall,	
+						'notes' => $notes	,
+						'n_d_call' => $ndcall	,
+					), 
+					array( 
+					'usr_id' => $userid ,
+					'status' => $i 
+					) 										
+				);
+				
+		$wpdb->query($wpdb->prepare("UPDATE $table_name SET d_call='$dcall', notes='$notes', n_d_call='$ndcall' WHERE usr_id=$userid and status=$i"));
+		
+		$Update = $wpdb->query("UPDATE wp_post_relationships SET status = '$status'");
+		
+/*** fetch result ***/
+		
+		$results = $wpdb->get_var( "SELECT * FROM $table_name WHERE usr_id = $userid");
+		
+		$results = $wpdb->get_results( "SELECT * FROM $table_name WHERE usr_id = $userid");
+
+		$cntrow= $wpdb->num_rows;
+		
+		$get_donate_posts = $wpdb->get_results("SELECT * FROM wp_donation  WHERE donars_id = $id_donor AND fund_ent_id = $post->ID");
+		
+		$r_id = $wpdb->get_results("SELECT * FROM wp_post_relationships where f_id=$post->ID");
+
+		$results = $wpdb->get_results( "SELECT id FROM $table_name where created_by = {$user_ID} and form_id = {$fid} ORDER BY id DESC");
+/*** join query ***/
+		$sql = $wpdb->get_results('SELECT usr.* FROM $table_name AS usr, wp_usermeta AS usm where usr.ID = "usm.user_id" AND (usm.meta_key = "mailing" and usm.meta_value != "complete") group by usr.ID');
 ?>

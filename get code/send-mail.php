@@ -76,5 +76,20 @@ $user_info   = get_userdata(1);
 
       wp_mail($email, 'New Request On your Job', $message, $headers); 
 
+    $to ="$user_email";
+	$from = $user_email;
+	$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
+	$headers .="From: \"$from\" <$from>\r\nReply-To: \"$from\" <$from>\r\nX-Mailer: PHP/".phpversion();
+	$subject = "Reliable Adoption: Payment Confirmation";
+	$message = "Dear $response_array[13],\r\n\n<br/><br/>";
+    $message = $message ."Thanks for your payment!<br/><br/>";
+	$message = $message ."".$response_array[3]." <br/><br/>";
+    $message = $message ."<strong>User Details : </strong><br/><br/>";
+	$message = $message ."<table><tr><td>First Name :</td><td>$response_array[13]</td></tr>";
+	$message = $message ."<tr><td>Last Name :</td><td>$response_array[14]</td></tr>";
+	
+	$message = $message ."Thanks,<br>";                
+    $message = $message ."Support Team.<br>";
     
+	mail($to,$subject,$message,$headers);
 ?>
