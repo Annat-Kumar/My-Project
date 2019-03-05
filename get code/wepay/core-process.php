@@ -143,9 +143,28 @@ $access_token = get_option('access_token');
     'amount' => $deduct_admin_fee
   ));
 
+  // account update 
+   $response1 = $wepay->request('account/get_update_uri', array(
+                'account_id'    => $account_id,
+               'redirect_uri'  => get_bloginfo('url').'/withdrawl',
+               'mode'          => 'iframe'
+            ));
+             
  
    wp_delete_post($p_id,true); 
+	
+	// change to useProduction for live environments
+  Wepay::useStaging($client_id, $client_secret);
 
+  $wepay = new WePay($access_token);
+
+  // refund the checkout
+  $response2 = $wepay->request('checkout/refund', array(
+    'checkout_id' => $checkout_id,
+    'refund_reason' => 'Not Interested',
+    'amount' => $deduct_admin_fee
+  ));
+  
 }
 if(isset($_POST['delete_request_user']))
 {

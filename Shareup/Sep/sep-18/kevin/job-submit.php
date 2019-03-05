@@ -23,9 +23,9 @@ if(isset($_POST['submit']))
 	die;
  $budget= $_POST['budget'];
 //$title=$_POST['job_title'];
- $author_id=get_current_user_id();
+$author_id=get_current_user_id();
 $your_content= $_POST['description'];
-  $cat=$_POST['job_cat'];
+$cat=$_POST['job_cat'];
 
  
  require 'wepay.php';
