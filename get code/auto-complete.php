@@ -1,93 +1,77 @@
 <?php
 
 /* author name auto complete */
-	  jQuery("#search_auth").autocomplete({
+jQuery("#search_auth").autocomplete({          
 
-          
+source: function( request, response ) {          
 
-        source: function( request, response ) {
+	 jQuery.ajax({
 
-          
+		url : '<?php echo get_bloginfo('template_url');?>/search_author.php',
 
-             jQuery.ajax({
+		dataType: "json",
 
-                url : '<?php echo get_bloginfo('template_url');?>/search_author.php',
+		type:'post',
 
-                dataType: "json",
+	data: {
 
-                type:'post',
+	   term: request.term
 
-            data: {
+	},
 
-               term: request.term
+	 success: function( data ) {
 
-            },
+	  // response( data );
+	   
+	  response( jQuery.map( data, function( item ) {               
 
-             success: function( data ) {
+		return {                  
 
-              // response( data );
+		  value: item.name
+		 
+		}
 
-               
+	  }));
 
-              response( jQuery.map( data, function( item ) {
+	}
 
-               
+	  });
 
-                return {
-
-                  
-
-                  value: item.name
-
-                 
-
-                }
-
-              }));
-
-
-
-            }
-
-              });
-
-            },
-
-                 
-
-    });
+	},
+		 
+});
 	
 ?>
 <?php
 
 jQuery("#job_city").autocomplete({
-        source: function( request, response ) {
-          
-             jQuery.ajax({
-                url : '<?php echo get_bloginfo('template_url');?>/search_city.php',
-                dataType: "json",
-                type:'post',
-            data: {
-               //name_startsWith: request.term,
-               term: request.term
-            },
-             success: function( data ) {
-              // response( data );
-              
-              response( jQuery.map( data, function( item ) {
-               
-                return {
-                  
-                  value: item.state
-                 
-                }
-              }));
-            }
-              });
-            },
-            autoFocus: true,
-            minLength: 0        
-    });
+source: function( request, response ) {
+  
+	 jQuery.ajax({
+		url : '<?php echo get_bloginfo('template_url');?>/search_city.php',
+		dataType: "json",
+		type:'post',
+	data: {
+	   //name_startsWith: request.term,
+	   term: request.term
+	},
+	 success: function( data ) {
+	  // response( data );
+	  
+	  response( jQuery.map( data, function( item ) {
+	   
+		return {
+		  
+		  value: item.state
+		 
+		}
+	  }));
+	}
+	  });
+	},
+	autoFocus: true,
+	minLength: 0        
+});
 	
 ?>
 <?php
@@ -102,14 +86,14 @@ $search = array();
 
 $res = $wpdb->get_results("SELECT *  FROM cities where city LIKE '".$term."%' OR city  LIKE '%".$term."%' OR city LIKE '%".$term."' LIMIT 8");
 
- foreach($res as $key=>$v)
-  {
-   $state=$v->city;
-   $code= $v->state_code;
-   $post_t= $state.', '.$code;
-   array_push($search,array('state'=>$post_t));
-  }
-	
+foreach($res as $key=>$v)
+{
+ $state=$v->city;
+ $code= $v->state_code;
+ $post_t= $state.', '.$code;
+ array_push($search,array('state'=>$post_t));
+}
+
     echo json_encode($search);
 	
 ?>

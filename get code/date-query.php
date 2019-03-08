@@ -57,6 +57,7 @@ function customer_order()
 	}
 
 }
+/* fetch order with table jois*/
 function collections_order()
 {
    
