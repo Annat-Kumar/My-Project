@@ -187,6 +187,7 @@ wp_head() ;
 			});
 		}
 	});
+	});
 </script>	
 
 <script>

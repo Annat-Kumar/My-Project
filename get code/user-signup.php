@@ -8,8 +8,7 @@ add_action('wp_ajax_check_user_login', 'check_user_login');
 
 
 function check_user_login()
-{
-  
+{  
 	$credentials=array();
 	$user_login = $_POST['user_login'];
 	$user_pass  = $_POST['user_pass'];

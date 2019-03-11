@@ -1,12 +1,11 @@
 
 
-<?php
-
-$user_info   = get_userdata(1);
+			<?php
+			$user_info   = get_userdata(1);
 			$admin_name  = $user_info->user_login;
 			$admin_email = get_option( 'admin_email' );
 
-	         	// write the email content for admin
+			// write the email content for admin
 
 			@$header4 .= "MIME-Version: 1.0\n";
 			$header4 .= "Content-Type: text/html; charset=utf-8\n";
@@ -48,48 +47,48 @@ $user_info   = get_userdata(1);
 
 			$to_admin = $admin_email;
 
-		          // send the email to reatiler
+			// send the email to reatiler
 			$email3 = wp_mail($to_admin, $subject31, $sends_message, $header4);
-?>
-<?php
+			?>
+			<?php
 
-	update_post_meta( $f_post_id, 'fund_title', $f_fund_name );
-	update_post_meta( $f_post_id, 'fund_city', $fund_city );
-	update_post_meta( $f_post_id, 'fund_zip', $findzip );   
-	update_post_meta( $f_post_id, 'select_date', $f_dated );
-	update_post_meta( $f_post_id, 'start_time', $f_fund_s_time );
-	update_post_meta( $f_post_id, 'event_expire_date', $f_e_dated );
-	update_post_meta( $f_post_id, 'end_time', $f_fund_e_time );
-	update_post_meta( $f_post_id, 'amount', $event_amt); 
-	update_post_meta( $f_post_id, 'amount', $event_amt); 
-	update_post_meta( $f_post_id, 'show_post', $show_post);
-?>
-<?php
+			update_post_meta( $f_post_id, 'fund_title', $f_fund_name );
+			update_post_meta( $f_post_id, 'fund_city', $fund_city );
+			update_post_meta( $f_post_id, 'fund_zip', $findzip );   
+			update_post_meta( $f_post_id, 'select_date', $f_dated );
+			update_post_meta( $f_post_id, 'start_time', $f_fund_s_time );
+			update_post_meta( $f_post_id, 'event_expire_date', $f_e_dated );
+			update_post_meta( $f_post_id, 'end_time', $f_fund_e_time );
+			update_post_meta( $f_post_id, 'amount', $event_amt); 
+			update_post_meta( $f_post_id, 'amount', $event_amt); 
+			update_post_meta( $f_post_id, 'show_post', $show_post);
+			?>
+			<?php
 
-  $user = get_user_by( 'id',$_POST['author_of_post'] );
-  $name= $user->first_name . ' ' . $user->last_name;
-  $email= $user->user_email;
-  $headers  = "MIME-Version: 1.0" . "\r\n";
-  $headers .= "Content-type: text/html; charset=".get_bloginfo('charset')."" . "\r\n";
-  $headers .= "From: Kevin Bendict <".get_option('admin_email').">" . "\r\n";
-  $message="Hello ".$name.",<br> <br>A new applicant has request you for your task description<br> <br>Please check it in your profile page.<br><br> Thanks";
+			$user = get_user_by( 'id',$_POST['author_of_post'] );
+			$name= $user->first_name . ' ' . $user->last_name;
+			$email= $user->user_email;
+			$headers  = "MIME-Version: 1.0" . "\r\n";
+			$headers .= "Content-type: text/html; charset=".get_bloginfo('charset')."" . "\r\n";
+			$headers .= "From: Kevin Bendict <".get_option('admin_email').">" . "\r\n";
+			$message="Hello ".$name.",<br> <br>A new applicant has request you for your task description<br> <br>Please check it in your profile page.<br><br> Thanks";
 
-      wp_mail($email, 'New Request On your Job', $message, $headers); 
+			wp_mail($email, 'New Request On your Job', $message, $headers); 
 
-    $to ="$user_email";
-	$from = $user_email;
-	$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
-	$headers .="From: \"$from\" <$from>\r\nReply-To: \"$from\" <$from>\r\nX-Mailer: PHP/".phpversion();
-	$subject = "Reliable Adoption: Payment Confirmation";
-	$message = "Dear $response_array[13],\r\n\n<br/><br/>";
-    $message = $message ."Thanks for your payment!<br/><br/>";
-	$message = $message ."".$response_array[3]." <br/><br/>";
-    $message = $message ."<strong>User Details : </strong><br/><br/>";
-	$message = $message ."<table><tr><td>First Name :</td><td>$response_array[13]</td></tr>";
-	$message = $message ."<tr><td>Last Name :</td><td>$response_array[14]</td></tr>";
-	
-	$message = $message ."Thanks,<br>";                
-    $message = $message ."Support Team.<br>";
-    
-	mail($to,$subject,$message,$headers);
-?>
+			$to ="$user_email";
+			$from = $user_email;
+			$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
+			$headers .="From: \"$from\" <$from>\r\nReply-To: \"$from\" <$from>\r\nX-Mailer: PHP/".phpversion();
+			$subject = "Reliable Adoption: Payment Confirmation";
+			$message = "Dear $response_array[13],\r\n\n<br/><br/>";
+			$message = $message ."Thanks for your payment!<br/><br/>";
+			$message = $message ."".$response_array[3]." <br/><br/>";
+			$message = $message ."<strong>User Details : </strong><br/><br/>";
+			$message = $message ."<table><tr><td>First Name :</td><td>$response_array[13]</td></tr>";
+			$message = $message ."<tr><td>Last Name :</td><td>$response_array[14]</td></tr>";
+
+			$message = $message ."Thanks,<br>";                
+			$message = $message ."Support Team.<br>";
+
+			mail($to,$subject,$message,$headers);
+			?>

@@ -8,7 +8,7 @@
  */
 get_header(); 
  ?>
- <div class="row enigma_blog_wrapper">
+<div class="row enigma_blog_wrapper">
 <div class="container inner_page">
 <div class="inner3">
 <ul class="nav nav-tabs edit_profile">
@@ -26,17 +26,17 @@ $msg='';
     // application settings
 $user = wp_get_current_user();
 if ( in_array( 'administrator',$user->roles ) )
- {
+{
    $account_id = get_option('account_id');
    $access_token = get_option('access_token');
-  }
-  else
-  {
-     $account_id = get_user_meta(get_current_user_id(),'wepay_account_id',true);
-     $access_token = get_user_meta(get_current_user_id(),'wepay_access_token',true);
-  }
-    $client_id = get_option('client_id');
-    $client_secret = get_option('client_secret');
+}
+else
+{
+ $account_id = get_user_meta(get_current_user_id(),'wepay_account_id',true);
+ $access_token = get_user_meta(get_current_user_id(),'wepay_access_token',true);
+}
+$client_id = get_option('client_id');
+$client_secret = get_option('client_secret');
     
 if($account_id !="" AND $access_token!="")
 {  
@@ -151,7 +151,7 @@ $filename = basename($pic['name']);
 
         );
 
-        $movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
+$movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
 if (!$movefile['error']) {
     $wp_filetype = wp_check_filetype($filename, null );
     $attachment = array(

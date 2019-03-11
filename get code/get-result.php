@@ -1,35 +1,39 @@
 <?php
 	
-		$userid = $_REQUEST["usrid"];
-		$production = $_REQUEST["production"];
+	$userid = $_REQUEST["usrid"];
+	$production = $_REQUEST["production"];
 
-		global $wpdb;
+	global $wpdb;
 
-		$table_name = $wpdb->prefix . 'production';
+	$table_name = $wpdb->prefix . 'production';
 
-		$results = $wpdb->get_var( "SELECT * FROM $table_name WHERE usr_id = $userid");
-		
-		//$results = $wpdb->get_results( "SELECT * FROM $table_name WHERE usr_id = $userid");
+	$results = $wpdb->get_var( "SELECT * FROM $table_name WHERE usr_id = $userid");
+	
+	//$results = $wpdb->get_results( "SELECT * FROM $table_name WHERE usr_id = $userid");
 
-		$cntrow= $wpdb->num_rows;
+	$cntrow= $wpdb->num_rows;
 
-		if ($cntrow > 0 )
-		{
+	if ($cntrow > 0 )
+	{
 		$wpdb->query($wpdb->prepare("UPDATE $table_name SET notes='$production' WHERE usr_id=$userid"));
-		}else{
+	}
+	else
+	{
 		$wpdb->insert( $table_name, array(
 		'usr_id' => $userid,
 		'notes' => $production,
 		'status' => '1'
 		) );
-		}
+	}
 
 print_r($_POST);die;
 
-/* echo "<br>Query executed is ".$wpdb->last_query;
-		echo "<br>Query result is ".$wpdb->last_result;
-		echo "<br>Error is ".$wpdb->last_error; */
-		?>
+	/*
+	echo "<br>Query executed is ".$wpdb->last_query;
+	echo "<br>Query result is ".$wpdb->last_result;
+	echo "<br>Error is ".$wpdb->last_error;
+	*/
+?>
 		
 
 
@@ -41,14 +45,16 @@ print_r($_POST);die;
         $get_donate_posts = $wpdb->get_results("SELECT * FROM wp_donation  WHERE donars_id = $id_donor AND fund_ent_id = $post->ID");
        //$ccount = count($get_donate_posts);
         $user_type = get_usermeta($id_donor , $meta_key = 'user_type' );
-        if ( get_post_status ( $post->ID ) == 'publish' ) {
+        if ( get_post_status ( $post->ID ) == 'publish' ) 
+		{
           if(is_user_logged_in()) 
           { 
 
             global $wpdb;
             $r_id = $wpdb->get_results("SELECT * FROM wp_post_relationships where f_id=$post->ID");
 
-            foreach ($r_id as $key => $lo_url) {
+            foreach ($r_id as $key => $lo_url) 
+			{
               $llogo_url = $lo_url->retailer_logo;
               $rtlr_id = $lo_url->r_id;
               $post_author_id = $lo_url->f_auth_id;
@@ -73,7 +79,7 @@ if((in_array("administrator", $user_roless)) ||  (in_array("editor", $user_roles
   $get_value = get_post_meta( get_the_ID(), 'show_post', true ); 
 }
 
- global $current_user;
+		global $current_user;
         get_currentuserinfo();
         $id_donor = $current_user->ID;
         global $wpdb;
@@ -99,10 +105,10 @@ $Update = $wpdb->query("UPDATE wp_post_relationships SET status = '$status'");
 ?>
 
 <tbody>
-<?php $query    = get_users();
-	
-		foreach($query as $user_list) {
-	?>
+<?php 
+$query    = get_users();	
+foreach($query as $user_list) {
+?>
 <tr>
 
 <td><?php echo $user_list->user_nicename; ?></td>
@@ -125,8 +131,7 @@ $Update = $wpdb->query("UPDATE wp_post_relationships SET status = '$status'");
 
 -----------------------------------------------------------
 <?php 
-/**** Insert query ****/
-
+		/**** Insert query ****/
 
 		$wpdb->insert( $table_name, array(
 		'usr_id' => $userid,
@@ -135,7 +140,7 @@ $Update = $wpdb->query("UPDATE wp_post_relationships SET status = '$status'");
 		) );
 		
 		
-/**** Update query ****/
+		/**** Update query ****/
 		$wpdb->query($wpdb->prepare("UPDATE $table_name SET notes='$production' WHERE usr_id=$userid"));
 		
 		$wpdb->update( 
@@ -155,7 +160,30 @@ $Update = $wpdb->query("UPDATE wp_post_relationships SET status = '$status'");
 		
 		$Update = $wpdb->query("UPDATE wp_post_relationships SET status = '$status'");
 		
-/*** fetch result ***/
+		$change_name = $_POST['table_name'];	
+		$table_id = $_POST['table_id'];
+
+		$table_name = $wpdb->prefix . 'wpdatatables';
+		$update_value = array('title' => $change_name);
+		$update =  $wpdb->update( 
+			$table_name, 
+			$update_value,
+			array( 'id' => $table_id ), 
+			array( 
+				'%s'	
+			), 
+			array( '%s' ) 
+		);
+
+
+		if($update){
+			echo "success";
+		}else {
+			echo "fail";
+		}
+		
+		
+		/*** fetch result ***/
 		
 		$results = $wpdb->get_var( "SELECT * FROM $table_name WHERE usr_id = $userid");
 		
@@ -168,6 +196,11 @@ $Update = $wpdb->query("UPDATE wp_post_relationships SET status = '$status'");
 		$r_id = $wpdb->get_results("SELECT * FROM wp_post_relationships where f_id=$post->ID");
 
 		$results = $wpdb->get_results( "SELECT id FROM $table_name where created_by = {$user_ID} and form_id = {$fid} ORDER BY id DESC");
-/*** join query ***/
+		
+		/*** join query ***/
 		$sql = $wpdb->get_results('SELECT usr.* FROM $table_name AS usr, wp_usermeta AS usm where usr.ID = "usm.user_id" AND (usm.meta_key = "mailing" and usm.meta_value != "complete") group by usr.ID');
+		
+		/*** delete query ****/
+		$delete = $wpdb->delete( $table_name, array( 'wdt_ID' => $row_id ) );
+		
 ?>

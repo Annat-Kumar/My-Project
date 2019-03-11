@@ -3,9 +3,7 @@
  * Template Name: Home page
  * The template for displaying Home page.
  * 
- 
- 
-*/
+**/
 get_header(); ?>
 
 
@@ -84,8 +82,7 @@ jQuery(document).ready(function($)
 		var url = window.location.origin;
 		var admin_url ="/admin-ajax.php";
 		//var ajaxUrl = url+admin_url;
-		var ajaxUrl="<?php echo admin_url('admin-ajax.php')?>";
-		
+		var ajaxUrl="<?php echo admin_url('admin-ajax.php')?>";		
 		var total_post = $("#post_count").val();
 		page=1; ppp=9;
 		set_offset = 9;
@@ -102,44 +99,86 @@ jQuery(document).ready(function($)
 		};
 		$(window).scroll(function(){
 			console.log(set_offset);
-		if(set_offset < total_post) {			
-		if( ! loading && scrollHandling.allow ) {
-						
-			scrollHandling.allow = false;
-			setTimeout(scrollHandling.reallow, scrollHandling.delay);
-			var offset = $(button).offset().top - $(window).scrollTop();
-			if( 2000 > offset ) {
-				//alert('working');
-				loading = true;
-				$(".loader").show();
-				$.post(ajaxUrl,{
-				type: 'POST',
-				action: "load_morepost",
-				set_offset:(page*ppp) ,
-				ppp:ppp,				
-				}).success(function(posts){					
-					page++;	
-					set_offset = page*ppp ;						
-					$(".load-more-post").before(posts);;
-					$(".loader").hide();
-					loading = false;
-				});
+			if(set_offset < total_post) {			
+			if( ! loading && scrollHandling.allow ) {						
+				scrollHandling.allow = false;
+				setTimeout(scrollHandling.reallow, scrollHandling.delay);
+				var offset = $(button).offset().top - $(window).scrollTop();
+				if( 2000 > offset ) {
+					//alert('working');
+					loading = true;
+					$(".loader").show();
+					$.post(ajaxUrl,{
+					type: 'POST',
+					action: "load_morepost",
+					set_offset:(page*ppp) ,
+					ppp:ppp,				
+					}).success(function(posts){					
+						page++;	
+						set_offset = page*ppp ;						
+						$(".load-more-post").before(posts);;
+						$(".loader").hide();
+						loading = false;
+					});
 
+				}
 			}
-		}
-		}
-		else {
-			//alert('no-more-post available');
-			$(".loader").hide();
-			$(".no-more-post").show();
-		}
+			}
+			else {
+				//alert('no-more-post available');
+				$(".loader").hide();
+				$(".no-more-post").show();
+			}
 		
-	 });
-		
-		
-		
-	
+		});
+							
 });
 
 
+</script>
+<script>
+
+$("#myBtn").on("click", function(){
+		
+		table_id = $("#get_id").val();
+		row_id = $("#myBtn").val();
+		if(row_id =='')
+		{
+			alert('please select row');
+			event.preventDefault(false);
+		}
+		$("#update").removeClass('add-row ');
+		$("#update").addClass('update-row');
+		$("#update").html('Update');
+
+		var url=ajaxUrl;
+			
+				$.ajax({
+
+				url :url,
+				type : 'post',
+				data : {
+					action : 'edit_data',
+					table_id : table_id,
+					row_id : row_id,
+				},         
+				beforeSend: function() 
+				{
+					   //$(".loader").show();                      
+				},
+				success: function(responseq) 
+				{					
+					// alert('success');
+					
+					/* var obj = jQuery.parseJSON(responseq);
+					col_len = obj.column.length;
+					console.log(col_len); */									
+					
+					$('.append-html').append(responseq);
+					$('.edit-table').show();
+				}
+				
+				});
+		});
+		
 </script>

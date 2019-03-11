@@ -2,20 +2,20 @@
 
 
 if(isset($_POST['submit_situation'])){
-  $date = date('F d, Y', time());
-    $us_id=get_current_user_id();
-  $old_app=get_post_meta($_POST['request_for_post'],'applicants',true);
-  $des=$_POST['request_desc'];
-  $media=$_FILES['request_media']['name'];
-  $upload_overrides = array( 'test_form' => false );
-  $uploadedfile = array(
-            'name'     => $_FILES['request_media']['name'],
-            'type'     => $_FILES['request_media']['type'],
-            'tmp_name' => $_FILES['request_media']['tmp_name'],
-            'error'    => $_FILES['request_media']['error'],
-            'size'     => $_FILES['request_media']['size']
+$date = date('F d, Y', time());
+$us_id=get_current_user_id();
+$old_app=get_post_meta($_POST['request_for_post'],'applicants',true);
+$des=$_POST['request_desc'];
+$media=$_FILES['request_media']['name'];
+$upload_overrides = array( 'test_form' => false );
+$uploadedfile = array(
+		'name'     => $_FILES['request_media']['name'],
+		'type'     => $_FILES['request_media']['type'],
+		'tmp_name' => $_FILES['request_media']['tmp_name'],
+		'error'    => $_FILES['request_media']['error'],
+		'size'     => $_FILES['request_media']['size']
 
-        );
+	);
 
         $movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
 		
@@ -34,21 +34,21 @@ if(isset($_POST['submit_situation'])){
         
         <input type="submit" class="send_request" name="submit_situation" value="Send Request"/>
 
-      </form>
+	</form>
 	  
 <?php
 
 
 $pic = $_FILES['upload_image'];
-//   echo "<pre>";print_r($pic);die;
+//echo "<pre>";print_r($pic);die;
 $path = $pic['name'];
 ?>
-   <img src="{$image_file}" alt="file not found" /></br>
+<img src="{$image_file}" alt="file not found" /></br>
  <?php   $upload_overrides = array( 'test_form' => false );
 
-     $reg_errors = new WP_Error;
+	 $reg_errors = new WP_Error;
 
-  if (empty( $pic ) ) {
+	if (empty( $pic ) ) {
      
      $reg_errors->add('upload_image', 'Profile Pic is required');
     
@@ -57,18 +57,19 @@ $path = $pic['name'];
      
 $filename = basename($pic['name']);
 
- $wp_filetype = wp_check_filetype($filename, null );
+$wp_filetype = wp_check_filetype($filename, null );
 
- $uploadedfile = array(
-            'name'     => $_FILES['upload_image']['name'],
-            'type'     => $_FILES['upload_image']['type'],
-            'tmp_name' => $_FILES['upload_image']['tmp_name'],
-            'error'    => $_FILES['upload_image']['error'],
-            'size'     => $_FILES['upload_image']['size']	
+$uploadedfile = array(
+		'name'     => $_FILES['upload_image']['name'],
+		'type'     => $_FILES['upload_image']['type'],
+		'tmp_name' => $_FILES['upload_image']['tmp_name'],
+		'error'    => $_FILES['upload_image']['error'],
+		'size'     => $_FILES['upload_image']['size']	
 
-        );
+	);
 
-        $movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
+$movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
+
 if (!$movefile['error']) {
     $wp_filetype = wp_check_filetype($filename, null );
     $attachment = array(
@@ -87,10 +88,10 @@ if (!$movefile['error']) {
     update_user_meta($user,'wp_user_avatar',$attachment_id);
 
 
-  echo '<div class="msg">You have update your profile picture </div>';
+	echo '<div class="msg">You have update your profile picture </div>';
 
-            
-        header( "refresh:5;url=".get_bloginfo('url')."/edit-profile" );
+				
+	header( "refresh:5;url=".get_bloginfo('url')."/edit-profile" );
 
   }
   else
@@ -104,4 +105,47 @@ if (!$movefile['error']) {
 
 }
 
+?>
+
+<?php
+/* mutlimule image upload */
+if(isset($_POST['submit_situation'])){
+  $date = date('F d, Y', time());
+  $us_id=get_current_user_id();
+  $old_app=get_post_meta($_POST['request_for_post'],'applicants',true);
+  $des=$_POST['request_desc'];
+  $media=$_FILES['request_media'];
+  $upload_overrides = array( 'test_form' => false );
+  //echo "working";
+  //die;
+  foreach($media['name'] as $key => $value){	  
+  if($media['name'][$key])
+  {
+	  $allowed =  array('png' ,'jpg' , 'jpeg');
+		$filename = $_FILES['request_media']['name'][$key];
+		$ext = pathinfo($filename, PATHINFO_EXTENSION);
+		if(!in_array($ext,$allowed) ) {
+			
+			echo '<div class="imgae-file-error">';
+			echo '<span class="text-error">'.$filename.' is not a JPG or PNG file!<br> only JPG PNG file are allowed.</span>';
+			exit;
+		}
+	$uploadedfile = array(
+            'name'     => $_FILES['request_media']['name'][$key],
+            'type'     => $_FILES['request_media']['type'][$key],
+            'tmp_name' => $_FILES['request_media']['tmp_name'][$key],
+            'error'    => $_FILES['request_media']['error'][$key],
+            'size'     => $_FILES['request_media']['size'][$key],
+
+        );
+
+        $movefile[] = wp_handle_upload( $uploadedfile, $upload_overrides );
+	}
+  }
+	foreach($movefile as $key => $value)
+	{
+		$applicant_media_path[] = $movefile[$key]['url'];
+	}
+	$media_file = implode(",",$applicant_media_path);
+}
 ?>

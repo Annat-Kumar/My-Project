@@ -2,16 +2,16 @@
 
 function subscriber_no_admin_access()
 {
-     $redirect = isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : home_url( '/' );
+    $redirect = isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : home_url( '/' );
     if ( 
         current_user_can( 'subscriber' )       
     )
-        exit( wp_redirect( $redirect ) );
+	exit( wp_redirect( $redirect ) );
 }
 add_action( 'admin_init', 'subscriber_no_admin_access', 100 );
 
 
-//add_filter( 'wp_nav_menu_items', 'wti_loginout_menu_link', 10, 2 );
+add_filter( 'wp_nav_menu_items', 'wti_loginout_menu_link', 10, 2 );
 
 function wti_loginout_menu_link( $items, $args ) {
    if ($args->theme_location == 'primary') {
@@ -23,7 +23,6 @@ function wti_loginout_menu_link( $items, $args ) {
    }
    return $items;
 }
-
 
 
 add_action('wp_logout','auto_redirect_after_logout');

@@ -78,10 +78,10 @@ function collections_order()
 function process_order($status)
 {
    
-    $args = array(
-    'meta_key'     => 'order',
-	'meta_value'   => 'process',
-		);
+$args = array(
+'meta_key'     => 'order',
+'meta_value'   => 'process',
+	);
 $query = count(get_users($args ));
 return $query;
 
@@ -95,9 +95,8 @@ $end_date= date('Y-m-t') ."<br>";
   
 $date1 = str_replace('-', '/', $end_date);
 $tomorrow = date('Y-m-d',strtotime($date1 . "+1 days"));
-   $args = array(
-   		
-      'meta_query' => array( 
+   $args = array(   	
+   'meta_query' => array( 
    array( 'relation' => 'AND',  
    array( 'key' => 'order_completed',
    'value' => array($start_date,$tomorrow),
@@ -110,9 +109,8 @@ $tomorrow = date('Y-m-d',strtotime($date1 . "+1 days"));
    )
    ));
 
-$users_count=  count( get_users($args));
+$users_count=  count(get_users($args));
 return $users_count;
-
 
 }
 

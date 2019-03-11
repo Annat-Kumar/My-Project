@@ -1,6 +1,6 @@
 
 <script>
-  $( document ).ready(function() {
+$( document ).ready(function() {
 
   $("#sub_chnge_info").click(function(event)
   {
@@ -26,7 +26,7 @@
     var numbers = /[^A-Za-z_\s]/;
       
     if (numbers.test(chn_firstname)) 
-      {
+    {
         document.getElementById("chn_firstname").style.borderColor = "#E34234";    
         jQuery('.info-error').html('<span style="color:red;"> Please Enter Only Letters For Your First Name !</span>');
         jQuery('.info-error').show(); 
@@ -53,7 +53,7 @@
     }
       
     if (numbers.test(chn_lastname)) 
-      {
+    {
         document.getElementById("chn_lastname").style.borderColor = "#E34234";    
         jQuery('.info-error').html('<span style="color:red;"> Please Enter Only Letters For Your Last Name !</span>');
         jQuery('.info-error').show(); 
@@ -100,7 +100,7 @@
     }   
 
    if ($.trim(chn_contact).length == 0) 
-    {
+   {
       document.getElementById("chn_contact").style.borderColor = "#E34234";
       jQuery('.info-error').html('<span style="color:red;"> Please Enter Phone Number !</span>');
       jQuery('.info-error').show();
@@ -122,4 +122,4 @@
         return false;
         
       }
-  </script>
+ </script>

@@ -2,125 +2,117 @@
 
 
 
-      include "wp-load.php";
+	include "wp-load.php";
+
+
+
+	$username=$_REQUEST['un'];
+
+
+
+	$useremail=$_REQUEST['ue'];
+
+
+
+	$password =$_REQUEST['up'];
+
+
+
+	$pass=$_REQUEST['up'];
+
+
+
+	$repass=$_REQUEST['urp'];
+
+
+
+	$children=$_REQUEST['uc'];
+
+
+
+	$province=$_REQUEST['state'];
+
+
+
+	$phone=$_REQUEST['phone'];
 
 	  
 
-     $username=$_REQUEST['un'];
 
+	$url= "/";
 
 
-      $useremail=$_REQUEST['ue'];
 
+	if (username_exists($useremail)) {
 
+		echo "email";
 
-      $password =$_REQUEST['up'];
+	} 
+	else { 
 
-      
+		$to ="$useremail";
 
-      $pass=$_REQUEST['up'];
+		$from = "welcome@stepparentadoptionforms.com";
 
+		$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
 
+		$headers .="From: \"$from\" <$from>\r\nReply-To: \"$from\" <$from>\r\nX-Mailer: PHP/".phpversion();
 
-      $repass=$_REQUEST['urp'];
+		$subject = "Thank you for visiting Stepparentadoptionforms.com";
 
+		$message = file_get_contents('new_registration.html');
 
+		$message = $message ."Support Team.<br>";
 
-      $children=$_REQUEST['uc'];
 
 
+		mail($to,$subject,$message,$headers);
 
-      $province=$_REQUEST['state'];
 
-	  
+		$user_registered = gmdate('Y-m-d H:i:s');	   
 
-	  $phone=$_REQUEST['phone'];
+		$userdata = array(
 
-	  
+			'user_login'  =>  $useremail,
 
+			'user_email'    =>  $useremail,
 
-      $url= "/";
+			'user_pass'   =>  $pass  ,
 
+			'user_registered' => $user_registered,
 
+			'user_nicename' => $username
 
-      if (username_exists($useremail)) {
+		);
 
-            echo "email";
+		$user_id = wp_insert_user( $userdata ) ;
 
-	    } 
-		else { 
+		$user = new WP_User($user_id);
 
-                $to ="$useremail";
+		$user->set_role(get_option('default_role'));	
 
-            	$from = "welcome@stepparentadoptionforms.com";
 
-            	$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
+		add_user_meta( $user_id,'first_name', $username ) ;
 
-            	$headers .="From: \"$from\" <$from>\r\nReply-To: \"$from\" <$from>\r\nX-Mailer: PHP/".phpversion();
+		add_user_meta( $user_id,'children', $children ) ;
 
-            	$subject = "Thank you for visiting Stepparentadoptionforms.com";
+		add_user_meta( $user_id,'state', $province ) ;
 
-                $message = file_get_contents('new_registration.html');
+		add_user_meta( $user_id,'usertype', 'customer') ;
 
-				$message = $message ."Support Team.<br>";
+		add_user_meta( $user_id,'mailing', 'process') ;
 
-                
+		add_user_meta( $user_id,'phone', $phone);
 
-            	mail($to,$subject,$message,$headers);
-     
+		add_user_meta( $user_id,'marketing', 'pending') ;
 
-				$user_registered = gmdate('Y-m-d H:i:s');
+		//wp_setcookie($useremail, $password, $already_md5 = false, $home = $url, $siteurl = $url) ;
+		
+		wp_set_auth_cookie($user_id, $remember = false, $secure = '') ;
 
-	   
+		echo "success";
 
-				$userdata = array(
-
-					'user_login'  =>  $useremail,
-
-					'user_email'    =>  $useremail,
-
-					'user_pass'   =>  $pass  ,
-
-				'user_registered' => $user_registered,
-
-				'user_nicename' => $username
-
-
-
-				);
-
-
-
-			$user_id = wp_insert_user( $userdata ) ;
-
-
-
-			$user = new WP_User($user_id);
-
-			$user->set_role(get_option('default_role'));	
-
-
-			add_user_meta( $user_id,'first_name', $username ) ;
-
-			add_user_meta( $user_id,'children', $children ) ;
-
-			add_user_meta( $user_id,'state', $province ) ;
-
-            add_user_meta( $user_id,'usertype', 'customer') ;
-
-			add_user_meta( $user_id,'mailing', 'process') ;
-
-			add_user_meta( $user_id,'phone', $phone);
-
-			add_user_meta( $user_id,'marketing', 'pending') ;
-
-			//wp_setcookie($useremail, $password, $already_md5 = false, $home = $url, $siteurl = $url) ;
-			
-			wp_set_auth_cookie($user_id, $remember = false, $secure = '') ;
-
-			echo "success";
-
-		  }
+	  }
 
 ?>
 
