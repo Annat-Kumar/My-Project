@@ -85,7 +85,6 @@ wp_head() ;
 
 
 <script>
-
 	var uploadField = document.getElementById("f_fund_images");
 	uploadField.onchange = function() {
 		if(this.files[0].size > 5242880){
