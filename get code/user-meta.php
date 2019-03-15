@@ -1,5 +1,10 @@
 
 <?php
+	
+	global $wpdb;
+	$user = wp_get_current_user();
+	$user_id =  $user->ID;
+	$username =  $user->user_nicename;
 	$user_info = get_userdata(get_current_user_id());
 	$name= $user_info->user_firstname.' '.$user_info->user_lastname;
 	$email= $user_info->user_email;

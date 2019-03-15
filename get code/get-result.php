@@ -182,6 +182,7 @@ foreach($query as $user_list) {
 			echo "fail";
 		}
 		
+		$update = $wpdb->query($wpdb->prepare("UPDATE wp_wpdatatable_2 SET newcolumn1 = '$column1_value' , newcolumn2 = '$column2_value',newcolumn3 = '$column3_value',newcolumn4 = '$column4_value' WHERE wp_wpdatatable_2.wdt_ID =".$wdt_id));
 		
 		/*** fetch result ***/
 		
@@ -201,6 +202,8 @@ foreach($query as $user_list) {
 		$sql = $wpdb->get_results('SELECT usr.* FROM $table_name AS usr, wp_usermeta AS usm where usr.ID = "usm.user_id" AND (usm.meta_key = "mailing" and usm.meta_value != "complete") group by usr.ID');
 		
 		/*** delete query ****/
+		$delete = $wpdb->delete( $table_name, array( 'wdt_ID' => $row_id ) );
+		$table_name = $wpdb->prefix . 'wpdatatable_2';
 		$delete = $wpdb->delete( $table_name, array( 'wdt_ID' => $row_id ) );
 		
 ?>

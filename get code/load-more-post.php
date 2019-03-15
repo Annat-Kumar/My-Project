@@ -182,3 +182,122 @@ $("#myBtn").on("click", function(){
 		});
 		
 </script>
+<script>
+
+jQuery(document).ready(function()
+{	
+		var url = window.location.origin;
+		var admin_url ="/rif-admin/admin-ajax.php";
+		var ajaxUrl = url+admin_url;
+
+		page=1; ppp = 9;
+		page_yr=1; 
+		page_rj=1; 
+		set_offset = 9;	
+		set_offset_yr = 9;	
+		set_offset_rj = 9;	
+		
+		//$('.post-listing').append( '<span class="load-more"></span>' );
+		var button = $('.post-listing');
+		var loading = false;	
+		var scrollHandling = {
+			allow: true,
+			reallow: function() {
+			scrollHandling.allow = true;
+			},
+			delay: 400 //(milliseconds) adjust to the highest acceptable value
+		};
+		$(window).scroll(function()
+		{
+			
+		total_pendcamp = $("#count_pendingcomp").val();		
+		total_yourfund = $("#count_fundraisercomp").val();		
+		total_rejectfund = $("#count_rejectedfundraiser").val();
+		
+		/*** pending fundraiser **/
+		if(set_offset < total_pendcamp) 
+		{
+			if( ! loading && scrollHandling.allow ) 
+			{						
+				scrollHandling.allow = false;
+				setTimeout(scrollHandling.reallow, scrollHandling.delay);
+				var offset = $(button).offset().top - $(window).scrollTop();
+				if( 2000 > offset ) 
+				{
+					loading = true;	
+					$(".loader").show();					
+					$.ajax({
+					url :ajaxUrl ,
+					type : 'post',
+					data : {
+						action : 'pending_fundraiser',
+						offset_p:(page*ppp) ,
+					    ppp:ppp,			
+					},
+					success : function( response ) 
+					{
+						page++;	
+						set_offset = page*ppp ;													
+						$(".load-more-pend-comp").before(response);											
+						loading = false;
+					
+					}
+				 })
+			    }
+			}
+		}
+		 else
+		{
+			$(".loader").hide();			
+			if(total_pendcamp !="0")
+			{
+				$(".block").hide();
+				$(".no-pend-fund").show();				
+			}			
+			
+		}
+</script>
+
+<?php
+
+/* load more post ajax */
+function lazy_load_ajax(){
+	$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;	
+    $offset = $_POST["offset"];  
+	$ppp = $_POST["ppp"]; 
+	$cat_id= $_POST["cat_id"];
+	$cat_slug= $_POST["cat_slug"];
+	header("Content-Type: text/html");	
+	$args = array( 
+	'post_type'             => 'product',
+    'post_status'           => 'publish',
+	'ignore_sticky_posts'   => 1,  
+	'posts_per_page'        => $ppp,
+	'offset'                => $offset,
+	'paged'                 => $paged,	
+	'meta_query'            => array(       
+	array( 'key'           => '_visibility',
+	'value'         => array('catalog', 'visible'), 
+	'compare'       => 'IN'        
+	)    
+	),
+	'tax_query'             => array( 
+	array(    
+	'taxonomy'      => 'product_cat',  
+	'field' => 'term_id', 
+	'terms'         => $cat_id,  
+	'operator'      => 'IN'   
+	)  
+	)	
+	);
+	$pid = $product->id;
+	$price = $product->price;
+	$desc = get_post_meta($pid, 'description', true);
+	$loop = new WP_Query( $args ); 		if($loop->have_posts()){ 
+	while ( $loop->have_posts() ) : $loop->the_post(); 
+	global $product; 
+	
+?>  
+
+	
+	

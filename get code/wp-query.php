@@ -103,4 +103,25 @@ add_action('wp_ajax_load_morepost', 'load_morepost');
    )
 );
 
+$args = array(
+        'post_type' => 'product',
+        'posts_per_page' => -1,
+        'tax_query' => array(
+            'relation' => 'OR',
+            array(
+                'taxonomy' => 'product_cat',
+                'field' => 'slug',
+                'operator' => 'IN',
+                'terms' => $cat_termslugs
+            ),
+            array(
+                'taxonomy' => 'product_tag',
+                'field' => 'slug',
+                'operator' => 'IN',
+                'terms' => $tax_termslugs
+            )
+        ),
+    );
+
+$taxquery = new WP_Query($args);
 ?>

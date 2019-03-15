@@ -212,4 +212,116 @@ $(document).ready(function()
   });
   
 }
+
+			if(isNaN(product_price)){
+				//alert(product_price);
+				alert('price is not a number');
+				event.preventDefault(false);	
+			}
+			
+			$("#product_title").prop('disabled', true);
+			$("#product_cat").prop('disabled', true);
+			$("#product_price").prop('disabled', true);
+			
+			website_fee = product_price*30/100 ;								
+			if(category_value=="345"){
+				
+				custome_fee = 0 ;
+				clearance_fee = 10;
+				vat_customes = product_price*14/100 ;
+				total_fee = parseInt(product_price) + parseInt(website_fee) + parseInt(custome_fee) + parseInt(vat_customes) + parseInt(clearance_fee) ;
+				
+				$(".custome_fee").hide(); 
+				$(".vat_customs").show();  
+				$(".clearance").show(); 
+				
+				website_fee = product_price*30/100 ;								
+				if(category_value=="345"){
+					
+					custome_fee = 0 ;
+					clearance_fee = 10;
+					vat_customes = product_price*14/100 ;
+					total_fee = parseInt(product_price) + parseInt(website_fee) + parseInt(custome_fee) + parseInt(vat_customes) + parseInt(clearance_fee) ;
+					
+					$(".custome_fee").hide(); 
+					$(".vat_customs").show();  
+					$(".clearance").show(); 
+ 
+				}
+
+			}
+			
+		var url = window.location.origin;
+		var admin_url ="/wp-admin/admin-ajax.php";
+		var ajaxUrl = url+admin_url;
+		
+		if(product_url ==''){
+				event.preventDefault(false);				
+			} 
+			else if (!regexp.test(product_url))
+				{
+					alert("Product url is not correct!");
+					event.preventDefault(false);	
+				}
+			else {				
+			
+			var url=ajaxUrl;
+			
+				$.ajax({
+
+				url :url,
+				type : 'post',
+				data : {
+					action : 'product_details',
+					scraped_Values : product_url
+				},         
+				beforeSend: function() 
+				{
+					   $(".product-loader").show();                      
+				},
+				success: function(responseq) 
+				{					
+					$(".product-loader").hide();
+					$(".main-div").show();	
+					var obj = jQuery.parseJSON(responseq);
+					title = obj.title ;
+					price = obj.price ;
+					
+					if(title =="Access Denied" || title ==null){
+						$("#product_title").val('');
+						$("#product_title").prop('disabled', false);  //Enable input 
+					}
+				}
+			$('#table_1').on('click', 'tbody tr', function(event) {
+				
+		var table;
+		table  = $('#table_1').DataTable();
+		row  = $(this).closest('tr');
+		row_id = table.row( row ).data() ;
+		
+		$("#myBtn").val(row_id[0]);
+		console.log(row_id[0]);
+
+
+ var v = jQuery("#job_posting").validate({
+      errorElement: "span",
+      errorClass: "help-inline-error",
+        rules: {
+    cc_number: {
+      required: true,
+      creditcard: true
+    },
+  budget : {
+    number: true,
+    min: 1
+  },
+  
+  
+    }
+    });
+
+  jQuery('#cc_cvv').keyup(function () {
+         var myRe = /^[0-9]{3,4}$/;
+         var cvv= jQuery("#cc_cvv").val();
+         var myArray = myRe.exec(cvv);	
 </script>  
