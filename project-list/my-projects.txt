@@ -8,3 +8,5 @@ https://alor.com/ (wocommerce customization)
 http://bytecodetechnologies.co.in/CakePHP/
 https://hersandfamily.com/product-details-from-url/
 http://bytecodetechnologies.co.in/wordpress-plugin/tabs/
+
+Continue..
